@@ -24,7 +24,7 @@
     },
       {
         "name": "sidecar",
-        "image": "your-ecr-repo/your-custom-sidecar:latest",
+        "image": "docker.io/uditgaurav/fargate-sidecar:latest",
         "essential": false,
         "environment": [
           {
