@@ -1,0 +1,59 @@
+
+{
+    "family": "your-task-family",
+    "taskRoleArn": "your-task-role-arn",
+    "executionRoleArn": "your-execution-role-arn",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+    {
+        "name": "nginx",
+        "image": "nginx",
+        "cpu": 0,
+        "portMappings": [
+            {
+                "containerPort": 80,
+                "hostPort": 80,
+                "protocol": "tcp"
+            }
+        ],
+        "essential": true,
+        "environment": [],
+        "mountPoints": [],
+        "volumesFrom": [],
+        "systemControls": []
+    },
+      {
+        "name": "sidecar",
+        "image": "your-ecr-repo/your-custom-sidecar:latest",
+        "essential": false,
+        "environment": [
+          {
+            "name": "SIDECAR_RUN_MODE",
+            "value": "SLEEPER"
+          },
+          {
+            "name": "NETWORK_LOSS",
+            "value": "20"
+          },
+          {
+            "name": "DURATION",
+            "value": "120"
+          },
+          {
+            "name": "TARGET_CONTAINER_IMAGE",
+            "value": "your-app-image"
+          }
+        ],
+        "linuxParameters": {
+          "initProcessEnabled": true,
+          "privileged": true
+        },
+        "memory": 128,
+        "cpu": 128
+      }
+    ],
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "1024"
+  }
+  
